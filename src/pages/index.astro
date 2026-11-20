@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import elias from '../assets/elias.jpg';
+import { getCollection } from 'astro:content';
+import { site } from '../site';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const knowledge = (await getCollection('knowledge')).sort((a, b) => +b.data.created - +a.data.created).slice(0, 3);
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+const settings = ['Public sector', 'Banking', 'Product Lead', 'Legacy modernisation', 'Integrations', 'Search and performance'];
+const certs = ['Oracle Certified Professional Java SE 21', 'Spring Certified Professional', 'iSAQB CPSA-F', 'Docker Certified Associate', 'CPRE-FL', 'ISTQB CTFL 4.0'];
+const topics = ['Java & Spring', 'Architecture', 'AI & Agents', 'Agentic Coding', 'Automation (n8n)', 'Testing', 'DB Performance', 'Business & Sales'];
+const questions = [
+  'Where does AI create real business value – and where not?',
+  'How do we get from AI prototype to a trustworthy solution?',
+  'How can teams use coding agents without losing quality?',
+];
+---
+<Base title="Home">
+  <section class="hero">
+    <Image class="portrait" src={elias} alt={`Portrait of ${site.name}`} width={440} height={550} loading="eager" />
+    <div class="hero-text">
+      <p class="lead">Hi, I'm</p>
+      <h1>{site.name}</h1>
+      <p class="lead">Software engineer focused on AI, software architecture and quality – consulting with an understanding of people and project goals.</p>
+      <p><a class="btn" href={`${base}/contact`}>Let's get in touch</a></p>
+    </div>
+  </section>
+
+  <h2>Get to know me</h2>
+  <p>I build enterprise applications with Java, Spring Boot and Angular, and I work on how AI can genuinely help teams deliver better software. I care about solving real problems and about AI that is transparent, traceable and trustworthy.</p>
+
+  <h2>Hot topics</h2>
+  <ul class="questions">{questions.map((q) => <li>{q}</li>)}</ul>
+
+  <h2>Focus areas</h2>
+  <p>{topics.map((t) => <span class="tag">{t}</span>)}</p>
+
+  <h2>Where I have worked</h2>
+  <p>{settings.map((s) => <span class="tag">{s}</span>)}</p>
+
+  <h2>Certifications</h2>
+  <p>{certs.map((c) => <span class="tag">{c}</span>)}</p>
+
+  <h2>Newest learnings</h2>
+  {knowledge.length === 0 ? <p>Practical notes and best practices are coming soon.</p> : (
+    <div class="grid">{knowledge.map((e) => (
+      <a class="card" href={`${base}/knowledge/${e.id}`}><h3>{e.data.title}</h3><p>{e.data.summary}</p><p class="date">Created {fmt(e.data.created)} · Last edited {fmt(e.data.updated)}</p></a>
+    ))}</div>
+  )}
+</Base>

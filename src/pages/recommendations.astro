@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const items = (await getCollection('recommendations')).sort((a, b) => +b.data.date - +a.data.date);
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const kinds = { book: 'Books', video: 'Videos', event: 'Events', tool: 'Tools' } as const;
+
+// Preview image: explicit `image` wins, otherwise the thumbnail of a YouTube video link.
+function preview(url?: string, image?: string) {
+  if (image) return image;
+  if (!url) return undefined;
+  try {
+    const u = new URL(url);
+    let id: string | null = null;
+    if (u.hostname === 'youtu.be') id = u.pathname.slice(1);
+    else if (u.hostname.endsWith('youtube.com') && u.pathname === '/watch') id = u.searchParams.get('v');
+    return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : undefined;
+  } catch { return undefined; }
+}
+---
+<Base title="Recommendations">
+  <h1>Recommendations</h1>
+  {items.length === 0 && <p>Good books, videos and events are coming soon.</p>}
+  {Object.entries(kinds).map(([k, label]) => {
+    const list = items.filter((e) => e.data.kind === k);
+    return list.length > 0 && (
+      <section><h2>{label}</h2>
+        <div class="grid">{list.map((e) => {
+          const img = preview(e.data.url, e.data.image);
+          return (
+            <div class="card media">
+              {img && (e.data.url
+                ? <a href={e.data.url}><img class="thumb" src={img} alt="" loading="lazy" /></a>
+                : <img class="thumb" src={img} alt="" loading="lazy" />)}
+              <p class="date">Recommended {fmt(e.data.date)}</p>
+              <h3>{e.data.url ? <a href={e.data.url}>{e.data.title}</a> : e.data.title}</h3>
+              <p>{e.data.why}</p>
+            </div>
+          );
+        })}</div>
+      </section>
+    );
+  })}
+</Base>

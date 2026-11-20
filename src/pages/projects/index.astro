@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const items = await getCollection('projects');
+---
+<Base title="Projects">
+  <h1>Projects</h1>
+  {items.length === 0 && <p>Side projects are coming soon.</p>}
+  <div class="grid">{items.map((e) => (
+    <a class="card" href={`${base}/projects/${e.id}`}>
+      <h3>{e.data.title}</h3>
+      <p>{e.data.summary}</p>
+      {e.data.status && <span class="tag" style="margin-top:.5rem">{e.data.status}</span>}
+    </a>
+  ))}</div>
+</Base>

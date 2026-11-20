@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+---
+<Base title="Contact">
+  <h1>Contact</h1>
+  <p class="lead">{site.fullName}</p>
+  <p>{site.location}</p>
+  <ul class="contact">
+    <li>Email: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+    <li>LinkedIn: <a href={site.linkedin}>linkedin.com/in/elias-erkinger-812660202</a></li>
+    {site.github && <li>GitHub: <a href={site.github}>{site.github.replace('https://', '')}</a></li>}
+  </ul>
+</Base>

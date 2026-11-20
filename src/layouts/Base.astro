@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import { site } from '../site';
+const { title, description = 'Elias Erkinger – software engineer focused on AI, software architecture and quality.' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+  ['LinkedIn', site.linkedin],
+  ['Email', `mailto:${site.email}`],
+].filter(Boolean) as string[][];
+const path = Astro.url.pathname.replace(base, '').replace(/\/$/, '') || '/';
+const current = (p: string) => (p === '/' ? path === '/' : path === p || path.startsWith(p + '/'));
+const nav = [
+  ['Knowledge', '/knowledge'], ['Talks', '/talks'],
+  ['Recommendations', '/recommendations'], ['Projects', '/projects'], ['Contact', '/contact'],
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#0b2a5b" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <title>{title === 'Home' ? site.name : `${title} · ${site.name}`}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title === 'Home' ? site.name : title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <header class="site"><div class="wrap">
+      <a class="brand" href={`${base}/`}>{site.name}</a>
+      <div class="links">{links.map(([l, h]) => <a href={h} rel="me noopener">{l}</a>)}</div>
+      <nav aria-label="Main">
+        <a class="home" href={`${base}/`} aria-label="Home" title="Home" aria-current={current('/') ? 'page' : undefined}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>
+        </a>
+        {nav.map(([l, p]) => <a href={`${base}${p}`} aria-current={current(p) ? 'page' : undefined}>{l}</a>)}
+      </nav>
+    </div></header>
+    <main><div class="wrap"><slot /></div></main>
+    <footer><div class="wrap">© {new Date().getFullYear()} {site.name} · <a href={`${base}/contact`}>Contact</a></div></footer>
+  </body>
+</html>

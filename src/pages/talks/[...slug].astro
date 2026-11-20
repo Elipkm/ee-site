@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() {
+  return (await getCollection('talks')).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const date = entry.data.date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+---
+<Base title={entry.data.title}>
+  <p><a href={`${base}/talks`}>← Talks</a></p>
+  <article>
+    <h1>{entry.data.title}</h1>
+    <p class="lead">{date}{entry.data.event && ` · ${entry.data.event}`}</p>
+    <p>
+      {entry.data.slidesUrl && <a href={entry.data.slidesUrl}>Slides</a>}
+      {entry.data.videoUrl && <> · <a href={entry.data.videoUrl}>Video</a></>}
+    </p>
+    <Content />
+  </article>
+</Base>
