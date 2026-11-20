@@ -22,8 +22,8 @@ jobs:
       - run: npm install
       - run: npm run build
         env:
-          SITE_URL: https://USERNAME.github.io
-          SITE_BASE: ""
+          SITE_URL: https://elipkm.github.io
+          SITE_BASE: "/ee-site"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
