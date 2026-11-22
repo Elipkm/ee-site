@@ -1,6 +1,6 @@
 ---
 created: 2026-11-20
-updated: 2026-11-20
+updated: 2026-11-21
 title: Agentic Coding in Practice
 summary: How I work with coding agents across frontend, backend and end-to-end tests – small steps, clear contracts, verified results.
 topic: Agentic Coding
@@ -37,4 +37,6 @@ Coding agents are most useful when the task is small, the context is clear and t
 
 ## Rule of thumb
 
-The agent writes, I stay responsible. More in [Prompt Collection and AGENTS.md](/knowledge/prompt-collection-and-agents-md) and [Greenfield Development with AI Agents](/knowledge/greenfield-development-with-ai-agents).
+The agent writes, I stay responsible. More in [Prompt Collection and AGENTS.md](/knowledge/prompt-collection-and-agents-md).
+
+The scope of the task is critical, model powerful enough to work on full story? Multiple services, dependencies etc. or smaller subtasks for the agent?

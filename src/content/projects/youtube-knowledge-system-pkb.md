@@ -1,5 +1,5 @@
 ---
-created: 2026-11-20
+created: 2026-11-19
 updated: 2026-11-20
 title: YouTube Knowledge System
 summary: Playlist Knowledge Base – a chat app that loads and embeds YouTube playlists, creates summaries and answers questions with RAG, built in n8n with Python scripts.

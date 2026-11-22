@@ -1,5 +1,5 @@
 ---
-created: 2026-11-20
+created: 2026-11-19
 updated: 2026-11-20
 title: Becoming a Better Engineer in the Age of AI
 date: 2026-09-21

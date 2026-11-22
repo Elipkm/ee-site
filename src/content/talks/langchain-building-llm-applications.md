@@ -6,7 +6,7 @@ date: 2025-02-01
 event: Internal tech talk
 ---
 
-A hands-on introduction to LangChain for developers who want to build applications on top of large language models. Related notes: [LangChain](/knowledge/langchain).
+A hands-on introduction to LangChain for developers who want to build applications on top of large language models. Related notes: LangChain.
 
 **What the talk covers**
 

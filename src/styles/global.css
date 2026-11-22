@@ -56,7 +56,8 @@ article th, article td { border:1px solid var(--line); padding:.35rem .6rem; }
 .card.media { padding:0; overflow:hidden; }
 .card.media h3, .card.media p { padding:0 1.1rem; }
 .card.media h3 { padding-top:.9rem; } .card.media p { padding-bottom:1rem; }
-.card.media:not(:has(img)) h3 { padding-top:1rem; }
+.thumb.logo { display:flex; align-items:center; justify-content:center; font-size:2.6rem; box-sizing:border-box; }
+img.thumb.logo { object-fit:contain; padding:2.2rem 0; }
 .thumb { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; background:var(--line); }
 .questions { padding-left:1.2rem; } .questions li { margin:.5rem 0; }
 .card .date { font-size:.8rem; text-transform:none; letter-spacing:.04em; margin-bottom:.1rem; }

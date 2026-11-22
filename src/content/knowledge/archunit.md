@@ -1,5 +1,5 @@
 ---
-created: 2026-11-20
+created: 2026-11-19
 updated: 2026-11-20
 title: ArchUnit
 summary: Turn architecture rules into unit tests for Java – layers, cycles and naming – and keep them honest in CI.
